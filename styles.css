@@ -1,0 +1,187 @@
+/* Gatherwits — studio site (diffui build 2b736985, option B).
+   Cream page, plum type, photoreal phones on the right.
+   Hairlines under the header and above the footer bookend the page. */
+:root {
+  --paper: #F7EEE3;
+  --plum: #1D0003;
+  --plum-80: rgba(29, 0, 3, 0.82);
+  --plum-65: rgba(29, 0, 3, 0.66);
+  --rule: rgba(29, 0, 3, 0.16);
+  --wine: #9B4453;          /* deeper rose: the light app rose fails on cream */
+  --sage: #5F6E48;          /* sage dark enough to read on cream (≥4.5:1) */
+  --cream: #FDF5EC;
+
+  --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px;
+  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+
+  --gutter: clamp(24px, 6vw, 96px);
+  --headline: clamp(56px, 8.8vw, 140px);
+  --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --sans: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 max(var(--gutter), calc((100vw - 1120px) / 2));
+  background: var(--paper);
+  color: var(--plum);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;                    /* the phones' bleed never adds a sideways scroll */
+}
+
+::selection { background: var(--plum); color: var(--cream); }
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--wine); outline-offset: 4px; border-radius: 3px; }
+
+/* ── Header: logo and Contact sit on one hairline ───────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-6) 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  z-index: 0;
+}
+.logo img { display: block; height: 30px; width: auto; }
+.nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  padding: var(--s-2) 0;
+  transition: color 160ms ease-out;
+}
+.nav-link:hover { color: var(--wine); }
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  flex: 1;
+  display: grid;
+  /* Copy column sizes to the copy; the phones take the rest and start
+     right after it, so the two read as one composition (2026-11-22). */
+  grid-template-columns: minmax(0, 27rem) minmax(0, 1fr);
+  column-gap: clamp(24px, 3vw, 56px);
+  align-items: center;
+  padding-block: clamp(28px, 4vh, 64px);
+}
+.copy {
+  max-width: 27rem;
+  /* 4. Same lift as the phones, so both centres share one line. */
+  margin-top: clamp(-120px, -9vh, -48px);
+}
+.headline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--headline);
+  line-height: 0.84;                   /* "Before" has no descenders, "you act." few ascenders: set tight */
+  letter-spacing: -0.025em;
+  white-space: nowrap;                 /* break set by hand: Before / you act. */
+}
+.intro {
+  margin-top: clamp(24px, 2.6vw, 40px);
+  max-width: 27rem;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.3;
+  color: var(--plum-80);
+  text-wrap: balance;               /* even rag: no stub last line */
+}
+.brand {
+  font-family: var(--serif);         /* the wordmark's voice inside the sentence */
+  font-size: 1.08em;
+  letter-spacing: -0.005em;
+  color: var(--plum);                /* darkest ink: strongest word in the sentence */
+}
+.status {
+  margin-top: clamp(14px, 1.3vw, 20px);
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--sage);
+}
+
+.phones {
+  justify-self: stretch;
+  position: relative;
+  z-index: 1;                          /* above the header hairline */
+  margin-top: calc(clamp(-120px, -9vh, -48px));
+}
+.phones img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 700px);
+  max-height: max(400px, calc(100svh - 190px));   /* header, hero, footer fit one screen */
+  margin-left: auto;                  /* right edge meets Contact and the footer */
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-8);
+  padding: var(--s-5) 0 var(--s-6);
+  border-top: 1px solid var(--rule);
+  font-size: 14px;
+  color: var(--plum-65);
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: var(--s-2) 0; }
+.site-footer nav > * + *::before { content: "·"; padding: 0 10px; color: var(--plum-65); }
+.site-footer a { transition: color 160ms ease-out; }
+.site-footer a:hover { color: var(--plum); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Legal placeholder pages ────────────────────────────── */
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 38rem;
+  padding-block: var(--s-16);
+}
+.page h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  margin-bottom: var(--s-6);
+}
+.page p { color: var(--plum-80); font-size: 18px; max-width: 62ch; }
+.page p + p { margin-top: var(--s-4); }
+.page a { color: var(--wine); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Narrow screens: copy first, phones below ───────────── */
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    row-gap: var(--s-10);
+    padding-block: var(--s-12) var(--s-8);
+  }
+  .headline { font-size: clamp(60px, 18vw, 120px); }
+  .copy { margin-top: 0; }
+  .phones { justify-self: center; width: 100%; margin-top: 0; }
+  .phones img { max-width: min(100%, 520px); max-height: none; margin: 0 auto; }
+  .site-footer { flex-direction: column; }
+}
+@media (max-width: 420px) {
+  .logo img { height: 26px; }
+}
+
+/* One authored moment: the phones rise into place. */
+@media (prefers-reduced-motion: no-preference) {
+  .copy { animation: fade 700ms cubic-bezier(.16, 1, .3, 1) both; }
+  .phones { animation: rise 1000ms 120ms cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+}
+
